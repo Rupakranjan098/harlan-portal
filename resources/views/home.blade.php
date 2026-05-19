@@ -6,7 +6,18 @@
         <div class="container">
             <div class="hero-content">
                 <span class="section-tag" style="color: white; border: 1px solid rgba(255,255,255,0.3); padding: 5px 15px; border-radius: 40px; display: inline-block; font-size: 10px; backdrop-filter: blur(10px);">EST. 1976 — HAMBURG, GERMANY</span>
-                <h1>BUILT TO<br><span>LAST.</span></h1>
+                @php
+                    $heroTitle = $settings['hero_title'] ?? 'BUILT TO LAST.';
+                    $words = explode(' ', $heroTitle);
+                    if (count($words) > 1) {
+                        $lastWord = array_pop($words);
+                        $remaining = implode(' ', $words);
+                        $formattedTitle = $remaining . '<br><span>' . $lastWord . '</span>';
+                    } else {
+                        $formattedTitle = '<span>' . $heroTitle . '</span>';
+                    }
+                @endphp
+                <h1>{!! $formattedTitle !!}</h1>
                 <p>{{ $settings['hero_subtitle'] ?? 'A global construction and infrastructure group operating across civil, energy, maritime, building, industrial, and digital sectors in 17 countries.' }}</p>
                 <div class="hero-btns">
                     <a href="{{ route('businesses') }}" class="btn-primary">Explore Our Work <i class="fas fa-arrow-right"></i></a>
